@@ -44,7 +44,7 @@ function draw() {
   if (volhistory.length > width - 1) {
     volhistory.splice(0, 1);
   }
-
+  //aquí va la figura complementaria
   //stroke(255, 0, 0);
   //stroke(volhistory.length, 10, volhistory.length, height);
   //ellipse(100, 100, 200, vol * 200);
