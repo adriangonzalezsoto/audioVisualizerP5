@@ -1,51 +1,56 @@
 
-var canción;
+var canción1;
 var volumen;
 var botón;
+var registroVolumen = [];
 
-var volhistory = [];
 
 function switchCanción() {
-  if (canción.isPlaying()) {
-    canción.pause();
-  } else {
-    canción.play();
-  }
+    
+  if (canción1.IsPlaying()){
+        canción1.pause();
+        botón.html('play');
+    } else{
+        canción1.play();
+        botón.html('pause');
+    }
 }
 
-function preload() {
-  canción = loadSound('this-dot-kp.mp3');
+function preload(input) {
+  canción1 = loadSound('canciones/this-dot-kp.mp3');
+  
 }
 
 function setup() {
-  createCanvas(200, 200);
-  botón = createButton('pausar');
-  botón.mousePressed(switchCanción);
-  canción.play();
+  createCanvas(500, 500);
+  botón = createButton('pause');
+  botón.mousePressed(switchCanción());
+  canción1.play();
   volumen = new p5.Amplitude();
 }
 
 function draw() {
-  background(0);
+  background(59);
   var vol = volumen.getLevel();
-  volhistory.push(vol);
-  stroke(255);
+  registroVolumen.push(vol);
+  stroke(0);
   noFill();
   push();
-  //var currentY = map(vol, 0, 1, height, 0);
-  //translate(0, height / 2 - currentY);
+  
   beginShape();
-  for (var i = 0; i < volhistory.length; i++) {
-    var y = map(volhistory[i], 0, 1, height, 0);
+  for (var i = 0; i < registroVolumen.length; i++) {
+    var y = map(registroVolumen[i], 0, 1, height/2, 0);
     vertex(i, y);
   }
+  
   endShape();
+  
   pop();
-  if (volhistory.length > width - 50) {
-    volhistory.splice(0, 1);
+  if (registroVolumen.length > width - 1) {
+    registroVolumen.splice(0, 1);
   }
 
-  stroke(255, 0, 0);
-  stroke(volhistory.length, 10, volhistory.length, height);
-  //ellipse(100, 100, 200, vol * 200);
+  //stroke(200, 150, 70);
+  //stroke(registroVolumen.length, 1, registroVolumen.length, height/2);
+ 
 }
