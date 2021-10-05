@@ -1,7 +1,7 @@
 var canción;
 var volumen;
 var botón;
-
+var botón1;
 var volhistory = [];
 
 function switchCanción() {
@@ -13,16 +13,29 @@ function switchCanción() {
     botón.html("pausar");
   }
 }
+function switchCanción1() {
+    if (canción1.isPlaying()) {
+      canción1.pause();
+      botón1.html("resumir");
+    } else {
+      canción1.play();
+      botón1.html("pausar");
+    }
+  }
 
 function preload() {
   canción = loadSound('canciones/this-dot-kp.mp3');
+  canción1 = loadSound('canciones/dupstep.mp3');
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight-50);
-  botón = createButton('pausar');
+
+  botón = createButton('Canción1');
   botón.mousePressed(switchCanción);
-  canción.play();
+
+  botón1 = createButton("Canción2");
+  botón1.mousePressed(switchCanción1);
   volumen = new p5.Amplitude();
 }
 
