@@ -1,55 +1,77 @@
 var canción;
-var volumen;
 var botón;
 var botón1;
 var botón2;
 var botón3;
 var botón4;
 var volhistory = [];
+var fft;
+var landscape;
+var knights;
+var fondo;
+var dancing;
+var happy;
+var dupstep;
+var calm;
 
 function switchCanción() {
+  fondo = dancing;
   if (canción.isPlaying()) {
     canción.pause();
     botón.html("resumir");
+    noLoop();
   } else {
     canción.play();
     botón.html("pausar");
+    loop();
   }
 }
 function switchCanción1() {
+  fondo = dupstep;
     if (canción1.isPlaying()) {
       canción1.pause();
       botón1.html("resumir");
+      noLoop();
     } else {
       canción1.play();
       botón1.html("pausar");
+      loop();
     }
 }
 function switchCanción2() {
+    fondo = knights;
     if (canción2.isPlaying()) {
       canción2.pause();
       botón2.html("resumir");
+      noLoop();
     } else {
       canción2.play();
       botón2.html("pausar");
+      loop();
     }
 }
 function switchCanción3() {
+  fondo = happy;
     if (canción3.isPlaying()) {
       canción3.pause();
       botón3.html("resumir");
+      noLoop();
     } else {
       canción3.play();
       botón3.html("pausar");
+      loop();
     }
 }
 function switchCanción4() {
+  fondo = calm;
     if (canción4.isPlaying()) {
       canción4.pause();
       botón4.html("resumir");
+      noLoop();
     } else {
       canción4.play();
       botón4.html("pausar");
+      loop();
     }
 }
 
@@ -59,10 +81,18 @@ function preload() {
   canción2 = loadSound('canciones/epic.mp3');
   canción3 = loadSound('canciones/sunny.mp3');
   canción4 = loadSound('canciones/betterdays.mp3');
+  landscape = loadImage('fondo/landscape.jpg');
+  knights = loadImage('fondo/knights.jpg');
+  happy = loadImage('fondo/happy.jpg');
+  dupstep = loadImage('fondo/dupstep.jpg');
+  dancing = loadImage('fondo/dancing.jpg');
+  calm = loadImage('fondo/calm.jpg');
 }
 
 function setup() {
+
   createCanvas(windowWidth, windowHeight-30);
+  fft = new p5.FFT();  
 
   botón = createButton('Canción1');
   botón.mousePressed(switchCanción);
@@ -81,31 +111,25 @@ function setup() {
 
   imagen = loadImage('canciones/imagenes/smileface.png');
 
-  volumen = new p5.Amplitude();
+  fft = new p5.FFT();  
+  fondo = landscape;
 }
 
 function draw() {
-  background(50);
-  image(imagen, windowWidth/2 - 100 , windowHeight/2 + 10);
-  var vol = volumen.getLevel();
-  volhistory.push(vol);
-  stroke(0);
+  background(fondo);
+  
+  stroke(0,255,255);
+  var wave = fft.waveform()
   noFill();
-  push();
 
   beginShape();
-  for (var i = 0; i < volhistory.length; i++) {
-    var y = map(volhistory[i], 0, 1, height/2, 0);
-    vertex(i, y);
+  for (var i = 0; i < width ; i++){
+    var index = floor(map(i, 110, width, 110, wave.length))
+
+    var x = i
+    var y = wave[index] * 200 + height/2
+    vertex(x, y)
   }
   endShape();
-  pop();
-  if (volhistory.length > width - 1) {
-    volhistory.splice(0, 1);
-  }
-  //image(imagen, windowWidth/2 - 100 , windowHeight/2 + 40);
   
-  //stroke(255, 0, 0);
-  //stroke(volhistory.length, 10, volhistory.length, height);
-  //ellipse(100, 100, 200, vol * 200);
 }
