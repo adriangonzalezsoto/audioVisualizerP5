@@ -2,6 +2,9 @@ var canción;
 var volumen;
 var botón;
 var botón1;
+var botón2;
+var botón3;
+var botón4;
 var volhistory = [];
 
 function switchCanción() {
@@ -21,21 +24,61 @@ function switchCanción1() {
       canción1.play();
       botón1.html("pausar");
     }
-  }
+}
+function switchCanción2() {
+    if (canción2.isPlaying()) {
+      canción2.pause();
+      botón2.html("resumir");
+    } else {
+      canción2.play();
+      botón2.html("pausar");
+    }
+}
+function switchCanción3() {
+    if (canción3.isPlaying()) {
+      canción3.pause();
+      botón3.html("resumir");
+    } else {
+      canción3.play();
+      botón3.html("pausar");
+    }
+}
+function switchCanción4() {
+    if (canción4.isPlaying()) {
+      canción4.pause();
+      botón4.html("resumir");
+    } else {
+      canción4.play();
+      botón4.html("pausar");
+    }
+}
 
 function preload() {
   canción = loadSound('canciones/this-dot-kp.mp3');
   canción1 = loadSound('canciones/dupstep.mp3');
+  canción2 = loadSound('canciones/epic.mp3');
+  canción3 = loadSound('canciones/sunny.mp3');
+  canción4 = loadSound('canciones/betterdays.mp3');
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight-50);
+  createCanvas(windowWidth, windowHeight-30);
 
   botón = createButton('Canción1');
   botón.mousePressed(switchCanción);
 
   botón1 = createButton("Canción2");
   botón1.mousePressed(switchCanción1);
+
+  botón2 = createButton("Canción3");
+  botón2.mousePressed(switchCanción2);
+
+  botón3 = createButton("Canción4");
+  botón3.mousePressed(switchCanción3);
+
+  botón4 = createButton("Canción5");
+  botón4.mousePressed(switchCanción4);
+
   volumen = new p5.Amplitude();
 }
 
