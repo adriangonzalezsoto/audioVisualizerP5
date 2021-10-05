@@ -1,0 +1,14 @@
+{"canciones":[
+{
+    "ruta": "/canciones/this-dot-kp.mp3",
+    "nombre": "canción1",
+    "género": "desconocido"
+},
+{
+    "ruta": "/canciones/this-dot-kp.mp3",
+    "nombre": "canción2",
+    "género": "pop"
+
+}
+
+]}
